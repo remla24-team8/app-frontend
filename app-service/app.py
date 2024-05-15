@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
 import joblib
-from  lib_ml import preprocess_input
+from lib_ml.preprocessing import preprocess_input
 
 app = Flask(__name__, static_folder='/usr/share/nginx/html')
 
 MODEL_PATH = 'models/model.joblib'
 
 if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"Model not found at {MODEL_PATH}. Make sure DVC pull was successful.")
+    raise FileNotFoundError(f"Model not found at {MODEL_PATH}. Make sure gdown was successful.")
 
 model = joblib.load(MODEL_PATH)
 

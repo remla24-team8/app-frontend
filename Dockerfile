@@ -14,12 +14,12 @@ RUN pip install -r requirements.txt
 # Copy application source code
 COPY app-service .
 
-# Install DVC and set up DVC remote
-RUN pip install dvc
+# Install gdown
+RUN pip install gdown
 
-# Copy DVC configuration and pull the model
-COPY .dvc /app-service/.dvc
-RUN dvc pull models/model.joblib
+# Download the model using gdown
+ARG MODEL_URL
+RUN gdown ${MODEL_URL} -O models/model.joblib
 
 # Final Stage: Run the backend service and serve static files
 FROM python:3.12-slim
