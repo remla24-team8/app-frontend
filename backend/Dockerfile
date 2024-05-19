@@ -1,4 +1,5 @@
 FROM python:3.12-slim-bookworm
+LABEL org.opencontainers.image.source=https://github.com/remla24-team8/app
 # We use pipx to install uv in a separate environment
 # We install specific version
 RUN python3 -m pip install --user pipx==1.5.0
