@@ -11,6 +11,9 @@ permissions:
   packages: write
   contents: read
 
+env:
+  BASE_IMAGE: ghcr.io/remla24-team8/app-backend
+
 jobs:
   build-image:
     runs-on: ubuntu-latest
@@ -31,16 +34,16 @@ jobs:
         run: echo "TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
       - name: Set image tag non-release
         if: ${{ github.event_name != 'release' || github.event.action != 'published' }}
-        run: echo "IMAGE_TAG_BACKEND=ghcr.io/remla24-team8/app-backend:$SHA_SHORT,main" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG_BACKEND=$BASE_IMAGE:$SHA_SHORT,$BASE_IMAGE:main" >> $GITHUB_ENV
       - name: Set image tag release
         if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
-        run: echo "IMAGE_TAG_BACKEND=ghcr.io/remla24-team8/app-backend:$SHA_SHORT,$TAG,latest" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG_BACKEND=$BASE_IMAGE:$SHA_SHORT,$BASE_IMAGE:$TAG,$BASE_IMAGE:latest" >> $GITHUB_ENV
       - name: Build and push backend
         uses: docker/build-push-action@v3
         with:
           context: ./backend
           file: ./backend/Dockerfile
-          tags: ghcr.io/remla24-team8/app-backend:main
+          tags: ${{ env.IMAGE_TAG_BACKEND }}
           cache-from: type=gha
           cache-to: type=gha, mode=max
           push: ${{ github.event_name != 'pull_request' }}
