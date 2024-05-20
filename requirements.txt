@@ -1,5 +1,0 @@
-Flask==2.3.2
-requests==2.28.2
-joblib
-gdown==4.5.1
-remla24-team8-lib-ml==0.1.3
