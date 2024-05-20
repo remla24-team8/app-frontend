@@ -165,4 +165,5 @@ models/
 params.json
 data/
 output/
-
+frontend/node_modules
+venv
