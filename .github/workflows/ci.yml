@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 env:
-  BASE_IMAGE: ghcr.io/remla24-team8/app-backend
+  BASE_IMAGE: ghcr.io/remla24-team8/app-frontend
 
 jobs:
   build-image:
@@ -41,8 +41,8 @@ jobs:
       - name: Build and push backend
         uses: docker/build-push-action@v3
         with:
-          context: ./backend
-          file: ./backend/Dockerfile
+          context: ./
+          file: ./Dockerfile
           tags: ${{ env.IMAGE_TAG_BACKEND }}
           cache-from: type=gha
           cache-to: type=gha, mode=max
