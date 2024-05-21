@@ -7,6 +7,10 @@
 </head>
 <body>
   <div id="root"></div>
+  <script>
+    // Below uses a Caddy template (in between the curly brackets), so it is replaced by Caddy by the value of the environment variable
+    window.BACKEND_URL = "{{env "BACKEND_URL"}}";
+  </script>
   <script type="module" src="/src/index.jsx"></script>
 </body>
 </html>
