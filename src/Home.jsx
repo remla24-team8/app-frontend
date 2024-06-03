@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 
 const BACKEND_URL = window.BACKEND_URL ?? 'http://localhost:5001';
 
@@ -18,16 +19,26 @@ function Home() {
     };
 
     return (
-        <div>
-            <h1>Welcome to the Prediction App</h1>
-            <input
-                type="text"
-                value={inputData}
-                onChange={e => setInputData(e.target.value)}
-                placeholder="Enter input data"
-            />
-            <button onClick={handlePredict}>Predict</button>
-            {prediction && <pre>{JSON.stringify(prediction, null, 2)}</pre>}
+        <div className="App">
+            <header className="App-header">
+                <h1 className="title">Welcome to the Prediction App</h1>
+                <div className="input-container">
+                    <input
+                        type="text"
+                        value={inputData}
+                        onChange={(e) => setInputData(e.target.value)}
+                        placeholder="Enter input data"
+                    />
+                    <button className="predict-button" onClick={handlePredict}>
+                        Predict
+                    </button>
+                </div>
+                {prediction && (
+                    <pre className="prediction-result">
+                        {JSON.stringify(prediction, null, 2)}
+                    </pre>
+                )}
+            </header>
         </div>
     );
 }

@@ -11,9 +11,11 @@ const Version = () => {
     }, []);
 
     return (
-        <div>
-            <h2>App Version</h2>
+        <div className="App">
+        <header className="App-header">
+            <h1 className="title">App version</h1>
             <p>{version}</p>
+        </header>
         </div>
     );
 };

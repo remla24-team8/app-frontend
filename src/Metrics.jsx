@@ -23,9 +23,11 @@ const Metrics = () => {
     };
 
     return (
-        <div>
-            <h2>Metrics</h2>
+        <div className="App">
+        <header className="App-header">
+            <h1 className="title">Metrics</h1>
             <p>{metrics}</p>
+        </header>
         </div>
     );
 };
