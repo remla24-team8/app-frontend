@@ -11,7 +11,7 @@ function Home() {
         fetch(`${BACKEND_URL}/predict`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url: inputData })
+            body: JSON.stringify({ url: inputData.split(',').map(item => item.trim()) })
         })
         .then(response => response.json())
         .then(data => setPrediction(data))
@@ -21,7 +21,10 @@ function Home() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1 className="title">Welcome to the Prediction App</h1>
+                <h1 className="title">Welcome to the URL Phishing Prediction App</h1>
+                <p className="description">To get started, enter a URL below, or multiple separated with comma's, and click the Predict button.
+                    The app will return the chance of the URL being a phishing URL.
+                </p>
                 <div className="input-container">
                     <input
                         type="text"
@@ -36,7 +39,7 @@ function Home() {
                 {prediction && (
                     <pre className="prediction-result">
                         {prediction.score.map((score, index) => (
-                            <p key={index}>Score {index + 1}: {score}</p>
+                            <p key={index}>Score {index + 1}: {(score * 100).toFixed(3)}%</p>
                         ))}
                     </pre>
                 )}
