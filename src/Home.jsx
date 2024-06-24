@@ -35,7 +35,9 @@ function Home() {
                 </div>
                 {prediction && (
                     <pre className="prediction-result">
-                        {JSON.stringify(prediction, null, 2)}
+                        {prediction.score.map((score, index) => (
+                            <p key={index}>Score {index + 1}: {score}</p>
+                        ))}
                     </pre>
                 )}
             </header>
