@@ -12,7 +12,7 @@ function Home() {
         fetch(`${BACKEND_URL}/predict`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'remla-deploy-version': DEPLOY_VERSION },
-            body: JSON.stringify({ url: inputData })
+            body: JSON.stringify({ url: inputData.split(',').map(item => item.trim()) })
         })
         .then(response => response.json())
         .then(data => setPrediction(data))
@@ -23,7 +23,7 @@ function Home() {
         <div className="App">
             <header className="App-header">
                 <h1 className="title">Welcome to the URL Phishing Prediction App</h1>
-                <p className="description">To get started, enter a URL below, and click the Predict button.
+                <p className="description">To get started, enter a URL below, and click the Predict button. To predict multiple links, separate them by comma's.
                     The app will return the chance of the URL being a phishing URL.
                 </p>
                 <div className="input-container">
