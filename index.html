@@ -10,6 +10,8 @@
   <script>
     // Below uses a Caddy template (in between the curly brackets), so it is replaced by Caddy by the value of the environment variable
     window.BACKEND_URL = "{{env "BACKEND_URL"}}";
+    // We need to forward the header to route to the correct backend
+    window.DEPLOY_VERSION = "{{.Req.Header.Get "remla-deploy-version"}}"
   </script>
   <script type="module" src="/src/index.jsx"></script>
 </body>
