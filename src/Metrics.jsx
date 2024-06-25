@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const BACKEND_URL = window.BACKEND_URL;
+const DEPLOY_VERSION = window.DEPLOY_VERSION ?? 'v2';
 
 const Metrics = () => {
     const [metrics, setMetrics] = useState([]);
@@ -13,7 +14,7 @@ const Metrics = () => {
     
     const fetchMetrics = () => {
         const metricsUrl = `${window.BACKEND_URL}/metrics`;
-        fetch(metricsUrl)
+        fetch(metricsUrl, { headers: { 'remla-deploy-version': DEPLOY_VERSION } })
             .then(response => response.text())
             .then(data => {
                 const lines = data.split('\n');
