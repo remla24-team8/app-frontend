@@ -30,10 +30,10 @@ jobs:
       - name: Commit SHA_SHORT
         run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       - name: Get branch name for non-release main
-        if: ${{ github.event_name != 'release' || github.event.action != 'published' && github.event_name != 'pull_request' }}
+        if: ${{ (github.event_name != 'release' || github.event.action != 'published') && github.event_name != 'pull_request' }}
         run: echo "BRANCH_NAME=$(git symbolic-ref --short HEAD)" >> $GITHUB_ENV
       - name: Get branch name for non-release PR
-        if: ${{ github.event_name != 'release' || github.event.action != 'published' && github.event_name == 'pull_request' }}
+        if: ${{ (github.event_name != 'release' || github.event.action != 'published') && github.event_name == 'pull_request' }}
         run: echo "BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
       - name: Tag name
         if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
