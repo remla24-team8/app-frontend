@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
+const BACKEND_URL = window.BACKEND_URL;
+
 const Metrics = () => {
     const [metrics, setMetrics] = useState([]);
 
-    useEffect(() => {
-        fetchMetrics();
-    }, []);
-
+    if (BACKEND_URL) {
+        useEffect(() => {
+            fetchMetrics();
+        }, []);
+    }
+    
     const fetchMetrics = () => {
         const metricsUrl = `${window.BACKEND_URL}/metrics`;
         fetch(metricsUrl)
@@ -27,14 +31,19 @@ const Metrics = () => {
             <header className="App-header">
                 <h1 className="title">Metrics</h1>
                 <div className="metrics-container">
-                    <div className="metrics-list">
-                        {metrics.map((metric, index) => (
-                            <div key={index} className="metric-item">
-                                <span className="metric-key">{metric.key}</span>: 
-                                <span className="metric-value">{metric.value}</span>
-                            </div>
-                        ))}
-                    </div>
+                    {BACKEND_URL && (
+                        <div className="metrics-list">
+                            {metrics.map((metric, index) => (
+                                <div key={index} className="metric-item">
+                                    <span className="metric-key">{metric.key}</span>: 
+                                    <span className="metric-value">{metric.value}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    {!BACKEND_URL && (
+                        <p>BACKEND_URL is not set. Metrics not available.</p>
+                    )}
                 </div>
             </header>
         </div>
