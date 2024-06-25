@@ -4,13 +4,21 @@ This is the frontend to the backend in app-service. It allows you to run the mod
 ## Local development
 
 ```
-docker build -t frontend .
+docker build -t app-frontend .
 # -d runs it in detached mode, -p sets the port to localhost:3000 and --rm makes sure it's deleted after being stopped, frontend is the tag
 docker run -d -p 3000:80 --rm frontend
 ```
 
-## Run production version
+## CI
 
-The CI builds the image with name `ghcr.io/remla24-team8/app-frontend`.
+The CI builds the image and pushes it to GHCR in case of:
 
-You can pull the latest development version with `docker pull ghcr.io/remla24-team8/app-frontend:main`. When you make a release, it also creates a tagged version, so e.g. `ghcr.io/remla24-team8/app-frontend:v0.1.0`. 
+- pull requests, with the PR branch name as tag, as well as the commit short sha
+- releases, with the tag name as tag, as well as 'latest', as well as the commit short sha
+- pushes to main, with 'main' as tag, as well as the commit short sha
+
+The image can then be pulled from `ghcr.io/remla24-team8/app-frontend:<tag>`.
+
+## Architecture
+
+This is a React application that is built as a static SPA using Vite. It is served using Caddy, which injects the deployment version header and the backend URL into the application to use.
