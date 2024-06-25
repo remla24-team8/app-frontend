@@ -34,7 +34,7 @@ jobs:
         run: echo "TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
       - name: Set image tag non-release
         if: ${{ github.event_name != 'release' || github.event.action != 'published' }}
-        run: echo "IMAGE_TAG_FRONTEND=$BASE_IMAGE:$SHA_SHORT,$BASE_IMAGE:${{ github.head_ref }}" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG_FRONTEND=$BASE_IMAGE:$SHA_SHORT,$BASE_IMAGE:${{ github.tag_ref }}" >> $GITHUB_ENV
       - name: Set image tag release
         if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
         run: echo "IMAGE_TAG_FRONTEND=$BASE_IMAGE:$SHA_SHORT,$BASE_IMAGE:$TAG,$BASE_IMAGE:latest" >> $GITHUB_ENV
