@@ -12,7 +12,7 @@ function Home() {
         fetch(`${BACKEND_URL}/predict`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'remla-deploy-version': DEPLOY_VERSION },
-            body: JSON.stringify({ url: inputData.split(',').map(item => item.trim()) })
+            body: JSON.stringify({ url: inputData })
         })
         .then(response => response.json())
         .then(data => setPrediction(data))
