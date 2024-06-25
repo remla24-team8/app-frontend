@@ -29,8 +29,8 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Commit SHA_SHORT
         run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-      - name: Get branch name for pull request
-        if: ${{ github.event_name == 'pull_request' }}
+      - name: Get branch name for non-release
+        if: ${{ github.event_name != 'release' || github.event.action != 'published' }}
         run: echo "BRANCH_NAME=$(git symbolic-ref --short HEAD)" >> $GITHUB_ENV
       - name: Tag name
         if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
