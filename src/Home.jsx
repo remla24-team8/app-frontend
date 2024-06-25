@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 const BACKEND_URL = window.BACKEND_URL ?? 'http://localhost:5001';
+const DEPLOY_VERSION = window.DEPLOY_VERSION ?? 'v2';
 
 function Home() {
     const [inputData, setInputData] = useState('');
@@ -10,7 +11,7 @@ function Home() {
     const handlePredict = () => {
         fetch(`${BACKEND_URL}/predict`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'remla-deploy-version': DEPLOY_VERSION },
             body: JSON.stringify({ url: inputData.split(',').map(item => item.trim()) })
         })
         .then(response => response.json())
