@@ -7,8 +7,8 @@ RUN npm ci
 COPY . .
 # Use the index.html with Caddy templates
 RUN mv caddy/index.html .
-ARG DEPLOY_VERSION=""
-RUN npm run build -- --base /frontend/${DEPLOY_VERSION}
+ARG DEPLOY_NAME=""
+RUN npm run build -- --base /frontend/${DEPLOY_NAME}
 
 # We use a multi-stage build to make the final version
 FROM caddy:2.8-alpine
